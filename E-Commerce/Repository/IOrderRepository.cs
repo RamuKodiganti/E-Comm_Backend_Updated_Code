@@ -4,7 +4,8 @@ namespace e_comm.Repository
 {
     public interface IOrderRepository
     {
-        int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus);
+        void RemoveCartItemsByCartId(int cartId);
+        int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus, int cartId);
         int CancelOrder(int orderId);
         Order GetOrderByOrderId(int orderId);
         List<Order> GetOrders();

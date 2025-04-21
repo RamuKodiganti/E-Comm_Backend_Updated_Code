@@ -5,7 +5,7 @@ namespace e_comm.Services
     public interface IOrderService
     {
         //IEnumerable<Order> GetOrders();
-        int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus);
+        int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus, int cartId);
         int CancelOrder(int orderId);
         Order GetOrderByOrderId(int orderId);
         List<Order> GetOrders();

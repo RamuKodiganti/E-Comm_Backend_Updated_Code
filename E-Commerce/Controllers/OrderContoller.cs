@@ -77,12 +77,35 @@ namespace e_comm.Controllers
         [Authorize(Roles = "User")]
 
 
+        //[HttpPost("{orderId}/place-order")]
+        //public IActionResult PlaceOrderByOrderId(int orderId, [FromBody] OrderUpdateRequest request)
+        //{
+        //    try
+        //    {
+        //        var result = _orderService.PlaceOrderByOrderId(orderId, request.ShippingAddress, request.PaymentStatus);
+        //        if (result > 0)
+        //        {
+        //            var updatedOrder = _orderService.GetOrderByOrderId(orderId);
+        //            return Ok("Order Placed Successfully"); // Return the updated order details
+        //        }
+        //        return NotFound("Order not found.");
+        //    }
+        //    catch (OrderNotFoundException ex)
+        //    {
+        //        return NotFound(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
+
         [HttpPost("{orderId}/place-order")]
-        public IActionResult PlaceOrderByOrderId(int orderId, [FromBody] OrderUpdateRequest request)
+        public IActionResult PlaceOrderByOrderId(int orderId, [FromBody] OrderUpdateRequest request, int cartId)
         {
             try
             {
-                var result = _orderService.PlaceOrderByOrderId(orderId, request.ShippingAddress, request.PaymentStatus);
+                var result = _orderService.PlaceOrderByOrderId(orderId, request.ShippingAddress, request.PaymentStatus, cartId);
                 if (result > 0)
                 {
                     var updatedOrder = _orderService.GetOrderByOrderId(orderId);

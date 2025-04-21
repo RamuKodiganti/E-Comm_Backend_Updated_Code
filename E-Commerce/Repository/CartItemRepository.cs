@@ -91,6 +91,15 @@ namespace e_comm.Repository
                 throw; // Re-throw the exception to be handled by the controller
             }
         }
+        //public void RemoveCartItemsByCartId(int cartId)
+        //{
+        //    var cartItems = _context.CartItems.Where(ci => ci.CartId == cartId).ToList();
+        //    if (cartItems.Any())
+        //    {
+        //        _context.CartItems.RemoveRange(cartItems);
+        //        _context.SaveChanges();
+        //    }
+        //}
 
     }
 

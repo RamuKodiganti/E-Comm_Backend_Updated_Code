@@ -15,13 +15,23 @@ namespace e_comm.Services
         }
 
 
-        public int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus)
+        //public int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus)
+        //{
+        //    if (_orderRepository.GetOrderByOrderId(orderId) == null)
+        //    {
+        //        throw new OrderNotFoundException($"Order with Order Id {orderId} does not exist");
+        //    }
+        //    return _orderRepository.PlaceOrderByOrderId(orderId, shippingAddress, paymentStatus);
+        //}
+
+
+        public int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus, int cartId)
         {
             if (_orderRepository.GetOrderByOrderId(orderId) == null)
             {
                 throw new OrderNotFoundException($"Order with Order Id {orderId} does not exist");
             }
-            return _orderRepository.PlaceOrderByOrderId(orderId, shippingAddress, paymentStatus);
+            return _orderRepository.PlaceOrderByOrderId(orderId, shippingAddress, paymentStatus, cartId);
         }
 
         public int CancelOrder(int orderId)

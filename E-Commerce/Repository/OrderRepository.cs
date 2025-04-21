@@ -15,7 +15,31 @@ namespace e_comm.Repository
             _connectionString = configuration.GetConnectionString("SqlConnection");
         }
 
-        public int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus)
+        //public int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus)
+        //{
+        //    var order = _context.Orders_.FirstOrDefault(o => o.OrderId == orderId);
+        //    if (order != null)
+        //    {
+        //        order.ShippingAddress = shippingAddress;
+        //        order.PaymentStatus = paymentStatus;
+
+        //        _context.Entry(order).State = EntityState.Modified;
+        //        return _context.SaveChanges();
+        //    }
+        //    return 0; // Return 0 if the order was not found
+        //}
+
+        public void RemoveCartItemsByCartId(int cartId)
+        {
+            var cartItems = _context.CartItems.Where(ci => ci.CartId == cartId).ToList();
+            if (cartItems.Any())
+            {
+                _context.CartItems.RemoveRange(cartItems);
+                _context.SaveChanges();
+            }
+        }
+
+        public int PlaceOrderByOrderId(int orderId, string shippingAddress, PaymentStatus paymentStatus, int cartId)
         {
             var order = _context.Orders_.FirstOrDefault(o => o.OrderId == orderId);
             if (order != null)
@@ -24,10 +48,16 @@ namespace e_comm.Repository
                 order.PaymentStatus = paymentStatus;
 
                 _context.Entry(order).State = EntityState.Modified;
-                return _context.SaveChanges();
+                var result = _context.SaveChanges();
+
+                // Remove cart items after placing the order
+                RemoveCartItemsByCartId(cartId);
+
+                return result;
             }
             return 0; // Return 0 if the order was not found
         }
+
 
         public int CancelOrder(int orderId)
         {
